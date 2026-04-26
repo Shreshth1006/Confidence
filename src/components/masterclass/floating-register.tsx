@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { HelpCircle, Sparkles } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
+
+interface FloatingRegisterProps {
+  onQuizClick?: () => void;
+}
 
 function smoothScrollTo(id: string) {
   const el = document.getElementById(id);
   if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
-export function FloatingRegister() {
+export function FloatingRegister({ onQuizClick }: FloatingRegisterProps) {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -23,7 +26,7 @@ export function FloatingRegister() {
     <AnimatePresence>
       {visible && (
         <>
-          {/* Left CTA → quiz */}
+          {/* Left: quiz trigger */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}
@@ -35,7 +38,7 @@ export function FloatingRegister() {
               variant="glass"
               size="lg"
               className="h-11 rounded-full px-4 text-xs font-bold shadow-2xl sm:h-14 sm:px-7 sm:text-base"
-              onClick={() => smoothScrollTo("quiz")}
+              onClick={() => onQuizClick ? onQuizClick() : smoothScrollTo("quiz")}
             >
               <HelpCircle className="size-4" />
               <span className="sm:hidden">Confidence check</span>
@@ -43,7 +46,7 @@ export function FloatingRegister() {
             </Button>
           </motion.div>
 
-          {/* Right CTA → register */}
+          {/* Right: register */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}

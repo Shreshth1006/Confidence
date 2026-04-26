@@ -48,56 +48,89 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+/* ── Section background animation keyframes ───────────────────────── */
+
+@keyframes orbFloat {
+  0%   { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(28px, -22px) scale(1.07); }
+  66%  { transform: translate(-18px, 16px) scale(0.95); }
+  100% { transform: translate(14px, 24px) scale(1.04); }
+}
+
+@keyframes orbFloat2 {
+  0%   { transform: translate(0, 0) scale(1); }
+  40%  { transform: translate(-24px, 18px) scale(1.06); }
+  80%  { transform: translate(20px, -14px) scale(0.96); }
+  100% { transform: translate(-10px, -20px) scale(1.03); }
+}
+
+@keyframes orbFloat3 {
+  0%   { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(16px, -28px) scale(1.08); }
+  100% { transform: translate(-22px, 10px) scale(0.93); }
+}
+
+@keyframes shimmerSweep {
+  0%   { transform: translateX(-110%); opacity: 0; }
+  8%   { opacity: 0.4; }
+  92%  { opacity: 0.2; }
+  100% { transform: translateX(110%); opacity: 0; }
+}
+
+@keyframes pulseRing {
+  0%   { transform: scale(0.6); opacity: 0.5; }
+  100% { transform: scale(2.8); opacity: 0; }
+}
+
+@keyframes particleRise {
+  0%   { transform: translateY(0) scale(0.4); opacity: 0; }
+  12%  { opacity: 0.7; }
+  88%  { opacity: 0.4; }
+  100% { transform: translateY(-110px) scale(1.6); opacity: 0; }
+}
+
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes borderGlow {
+  0%, 100% { box-shadow: 0 0 0 0 transparent; }
+  50%       { box-shadow: 0 0 32px 2px color-mix(in oklab, var(--primary) 18%, transparent); }
+}
+
+/* ── CSS custom properties ────────────────────────────────────────── */
+
 :root {
   --radius: 0.875rem;
   --font-display: "Sora", sans-serif;
   --font-body: "Manrope", sans-serif;
 
-  /* ── Base ── */
-  /* Soft lavender-white background */
   --background: oklch(0.972 0.014 278.0);
-  /* Deep indigo foreground for text */
   --foreground: oklch(0.22 0.055 275.0);
-
-  /* ── Card & Popover ── */
   --card: oklch(0.988 0.01 272.0 / 92%);
   --card-foreground: oklch(0.22 0.055 275.0);
   --popover: oklch(0.988 0.01 272.0 / 98%);
   --popover-foreground: oklch(0.22 0.055 275.0);
-
-  /* ── Primary: vivid violet-blue ── */
   --primary: oklch(0.58 0.22 278.0);
   --primary-foreground: oklch(0.99 0.005 280.0);
-
-  /* ── Secondary: sky / cyan-blue ── */
   --secondary: oklch(0.70 0.155 220.0);
   --secondary-foreground: oklch(0.18 0.04 240.0);
-
-  /* ── Muted ── */
   --muted: oklch(0.942 0.022 276.0);
   --muted-foreground: oklch(0.50 0.055 272.0);
-
-  /* ── Accent: soft periwinkle ── */
   --accent: oklch(0.86 0.09 268.0);
   --accent-foreground: oklch(0.25 0.055 275.0);
-
-  /* ── Destructive ── */
   --destructive: oklch(0.63 0.237 25.1);
   --destructive-foreground: oklch(0.99 0.008 84.2);
-
-  /* ── Borders & inputs ── */
   --border: oklch(0.84 0.035 272.0 / 70%);
   --input: oklch(0.952 0.018 274.0 / 90%);
   --ring: oklch(0.62 0.18 278.0 / 70%);
-
-  /* ── Charts ── */
   --chart-1: oklch(0.58 0.22 278.0);
   --chart-2: oklch(0.70 0.155 220.0);
   --chart-3: oklch(0.72 0.18 310.0);
   --chart-4: oklch(0.78 0.14 240.0);
   --chart-5: oklch(0.65 0.20 260.0);
-
-  /* ── Sidebar ── */
   --sidebar: oklch(0.982 0.012 274.0);
   --sidebar-foreground: oklch(0.22 0.055 275.0);
   --sidebar-primary: oklch(0.58 0.22 278.0);
@@ -107,69 +140,45 @@
   --sidebar-border: oklch(0.84 0.035 272.0 / 70%);
   --sidebar-ring: oklch(0.62 0.18 278.0 / 70%);
 
-  /* ── Gradients & shadows ── */
-  /* Hero: pearly lavender → sky blue */
-  --hero-wash: linear-gradient(
-    145deg,
-    oklch(0.97 0.018 278.0) 0%,
-    oklch(0.96 0.03 260.0) 35%,
-    oklch(0.955 0.04 218.0) 100%
-  );
-
-  /* Panel: lavender-white → icy blue */
-  --panel-gradient: linear-gradient(
-    135deg,
-    oklch(0.990 0.010 272.0 / 88%),
-    oklch(0.965 0.030 218.0 / 76%)
-  );
-
-  /* Story band: violet tint wash */
-  --story-gradient: linear-gradient(
-    180deg,
-    oklch(0.58 0.22 278.0 / 10%),
-    oklch(0.70 0.155 220.0 / 8%) 55%,
-    transparent 100%
-  );
-
-  /* Shadows */
+  --hero-wash: linear-gradient(145deg, #0f0c29 0%, #1a1060 45%, #302b63 100%);
+  --panel-gradient: linear-gradient(135deg, oklch(0.990 0.010 272.0 / 88%), oklch(0.965 0.030 218.0 / 76%));
+  --story-gradient: linear-gradient(180deg, oklch(0.58 0.22 278.0 / 10%), oklch(0.70 0.155 220.0 / 8%) 55%, transparent 100%);
   --shadow-soft: 0 18px 50px -28px color-mix(in oklab, oklch(0.58 0.22 278.0) 22%, transparent);
   --shadow-lift: 0 30px 70px -35px color-mix(in oklab, oklch(0.58 0.22 278.0) 40%, transparent);
   --shadow-glow:
     0 0 0 1px color-mix(in oklab, oklch(0.86 0.09 268.0) 30%, transparent),
     0 28px 80px -45px color-mix(in oklab, oklch(0.70 0.155 220.0) 55%, transparent);
+
+  /* ── Section background colors (used by JS orb injector) ── */
+  --section-hero-bg:        #0f0c29;
+  --section-program-bg:     #f5f3ff;
+  --section-journey-bg:     #0c1445;
+  --section-learn-bg:       #f0f9ff;
+  --section-recognition-bg: #1e0533;
+  --section-testi-bg:       #fdf4ff;
+  --section-enroll-bg:      #030712;
 }
 
 .dark {
-  /* ── Dark: deep indigo night ── */
   --background: oklch(0.19 0.04 272.0);
   --foreground: oklch(0.96 0.012 278.0);
-
   --card: oklch(0.25 0.042 270.0 / 88%);
   --card-foreground: oklch(0.96 0.012 278.0);
   --popover: oklch(0.25 0.042 270.0 / 96%);
   --popover-foreground: oklch(0.96 0.012 278.0);
-
-  /* Primary: bright lavender-blue */
   --primary: oklch(0.72 0.20 278.0);
   --primary-foreground: oklch(0.16 0.04 272.0);
-
-  /* Secondary: electric sky */
   --secondary: oklch(0.74 0.145 218.0);
   --secondary-foreground: oklch(0.16 0.04 240.0);
-
   --muted: oklch(0.30 0.038 272.0);
   --muted-foreground: oklch(0.80 0.022 278.0);
-
   --accent: oklch(0.78 0.10 268.0);
   --accent-foreground: oklch(0.18 0.04 272.0);
-
   --destructive: oklch(0.68 0.201 24.6);
   --destructive-foreground: oklch(0.98 0.012 84.2);
-
   --border: oklch(0.46 0.05 270.0 / 44%);
   --input: oklch(0.30 0.038 270.0 / 90%);
   --ring: oklch(0.68 0.18 278.0 / 70%);
-
   --sidebar: oklch(0.23 0.04 272.0);
   --sidebar-foreground: oklch(0.96 0.012 278.0);
   --sidebar-primary: oklch(0.72 0.20 278.0);
@@ -178,24 +187,9 @@
   --sidebar-accent-foreground: oklch(0.96 0.012 278.0);
   --sidebar-border: oklch(0.46 0.05 270.0 / 44%);
   --sidebar-ring: oklch(0.68 0.18 278.0 / 70%);
-
-  --hero-wash: linear-gradient(
-    145deg,
-    oklch(0.20 0.042 272.0) 0%,
-    oklch(0.26 0.048 262.0) 50%,
-    oklch(0.24 0.05 218.0) 100%
-  );
-  --panel-gradient: linear-gradient(
-    135deg,
-    oklch(0.26 0.042 270.0 / 90%),
-    oklch(0.28 0.036 218.0 / 82%)
-  );
-  --story-gradient: linear-gradient(
-    180deg,
-    oklch(0.72 0.20 278.0 / 18%),
-    oklch(0.74 0.145 218.0 / 12%) 55%,
-    transparent 100%
-  );
+  --hero-wash: linear-gradient(145deg, #050310 0%, #0e0840 50%, #1a1560 100%);
+  --panel-gradient: linear-gradient(135deg, oklch(0.26 0.042 270.0 / 90%), oklch(0.28 0.036 218.0 / 82%));
+  --story-gradient: linear-gradient(180deg, oklch(0.72 0.20 278.0 / 18%), oklch(0.74 0.145 218.0 / 12%) 55%, transparent 100%);
   --shadow-soft: 0 18px 50px -28px color-mix(in oklab, black 52%, transparent);
   --shadow-lift: 0 30px 70px -35px color-mix(in oklab, oklch(0.72 0.20 278.0) 38%, transparent);
   --shadow-glow:
@@ -203,14 +197,11 @@
     0 28px 80px -45px color-mix(in oklab, oklch(0.74 0.145 218.0) 32%, transparent);
 }
 
-@layer base {
-  * {
-    border-color: var(--color-border);
-  }
+/* ── Base layer ───────────────────────────────────────────────────── */
 
-  html {
-    scroll-behavior: smooth;
-  }
+@layer base {
+  * { border-color: var(--color-border); }
+  html { scroll-behavior: smooth; }
 
   body {
     min-height: 100vh;
@@ -226,6 +217,548 @@
     background: color-mix(in oklab, var(--primary) 24%, transparent);
   }
 }
+
+/* ── Section animated backgrounds ────────────────────────────────── */
+
+/*
+  Each section has:
+  - A [data-section] attribute set via the section-bg utility classes below
+  - Orbs (blurred circles) that float via CSS animations
+  - A subtle grid overlay
+  - Optional shimmer lines, pulse rings, and rising particles
+  - A wave/curve SVG divider between sections (added via ::after pseudo)
+
+  To use: add the matching class to your <section> element.
+  Example: <section className="section-shell section-bg-program">
+*/
+
+/* ── Shared orb base ── */
+.section-bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* ── Shared section wrapper ── */
+[class*="section-bg-"] {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Grid overlay — subtle dotted grid on dark sections */
+[class*="section-bg-"].has-grid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 44px 44px;
+  pointer-events: none;
+}
+
+/* All inner content should sit above the animated bg */
+[class*="section-bg-"] > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ═══════════════════════════════════════════════════════
+   SECTION 1 — HERO: Deep violet cosmos
+   Dark bg, violet + indigo + cyan orbs, grid, shimmer
+   ═══════════════════════════════════════════════════════ */
+.section-bg-hero {
+  background: linear-gradient(135deg, #0f0c29 0%, #1a1060 45%, #302b63 100%);
+}
+
+.section-bg-hero .orb-1 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, #7c3aed 0%, transparent 70%);
+  top: -120px; left: -80px;
+  opacity: 0.55;
+  animation: orbFloat 10s ease-in-out infinite alternate;
+}
+.section-bg-hero .orb-2 {
+  width: 380px; height: 380px;
+  background: radial-gradient(circle, #2563eb 0%, transparent 70%);
+  top: 60px; right: -60px;
+  opacity: 0.45;
+  animation: orbFloat2 13s ease-in-out infinite alternate;
+}
+.section-bg-hero .orb-3 {
+  width: 260px; height: 260px;
+  background: radial-gradient(circle, #06b6d4 0%, transparent 70%);
+  bottom: -60px; left: 42%;
+  opacity: 0.35;
+  animation: orbFloat3 9s ease-in-out infinite alternate;
+}
+
+.section-bg-hero .shimmer-1,
+.section-bg-hero .shimmer-2 {
+  position: absolute;
+  height: 1px;
+  width: 130%;
+  left: -15%;
+  pointer-events: none;
+  z-index: 0;
+}
+.section-bg-hero .shimmer-1 {
+  top: 32%;
+  background: linear-gradient(90deg, transparent, rgba(124,58,237,0.55), transparent);
+  animation: shimmerSweep 6s linear infinite;
+}
+.section-bg-hero .shimmer-2 {
+  top: 68%;
+  background: linear-gradient(90deg, transparent, rgba(37,99,235,0.4), transparent);
+  animation: shimmerSweep 9s linear infinite;
+  animation-delay: -4s;
+}
+
+/* ═══════════════════════════════════════════════════════
+   SECTION 2 — PROGRAM INTRO: Soft lavender pulse
+   Light bg, gentle violet orbs, expanding pulse rings
+   ═══════════════════════════════════════════════════════ */
+.section-bg-program {
+  background: linear-gradient(160deg, #f5f3ff 0%, #ede9fe 50%, #ddd6fe 100%);
+}
+
+.section-bg-program .orb-1 {
+  width: 420px; height: 420px;
+  background: radial-gradient(circle, #8b5cf6 0%, transparent 68%);
+  top: -120px; right: 80px;
+  opacity: 0.22;
+  animation: orbFloat 12s ease-in-out infinite alternate;
+}
+.section-bg-program .orb-2 {
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, #a78bfa 0%, transparent 70%);
+  bottom: -80px; left: 30px;
+  opacity: 0.18;
+  animation: orbFloat2 15s ease-in-out infinite alternate;
+}
+
+/* Pulse rings — positioned right side */
+.section-bg-program .pulse-ring-1,
+.section-bg-program .pulse-ring-2,
+.section-bg-program .pulse-ring-3 {
+  position: absolute;
+  border-radius: 50%;
+  border: 1.5px solid rgba(139,92,246,0.35);
+  width: 280px; height: 280px;
+  top: 50%; right: 8%;
+  transform: translate(50%, -50%);
+  pointer-events: none;
+  animation: pulseRing 5s ease-out infinite;
+}
+.section-bg-program .pulse-ring-2 { animation-delay: -1.7s; }
+.section-bg-program .pulse-ring-3 { animation-delay: -3.4s; }
+
+/* ═══════════════════════════════════════════════════════
+   SECTION 3 — WEEKLY JOURNEY: Royal blue journey path
+   Deep navy, blue + indigo orbs, animated dashed path
+   ═══════════════════════════════════════════════════════ */
+.section-bg-journey {
+  background: linear-gradient(135deg, #0c1445 0%, #1e3a8a 50%, #1d4ed8 100%);
+}
+
+.section-bg-journey .orb-1 {
+  width: 480px; height: 480px;
+  background: radial-gradient(circle, #3b82f6 0%, transparent 68%);
+  top: -120px; left: -80px;
+  opacity: 0.5;
+  animation: orbFloat 11s ease-in-out infinite alternate;
+}
+.section-bg-journey .orb-2 {
+  width: 340px; height: 340px;
+  background: radial-gradient(circle, #6366f1 0%, transparent 70%);
+  top: 40px; right: -40px;
+  opacity: 0.4;
+  animation: orbFloat2 14s ease-in-out infinite alternate;
+}
+.section-bg-journey .orb-3 {
+  width: 220px; height: 220px;
+  background: radial-gradient(circle, #0ea5e9 0%, transparent 70%);
+  bottom: -40px; left: 48%;
+  opacity: 0.35;
+  animation: orbFloat3 10s ease-in-out infinite alternate;
+}
+
+.section-bg-journey .shimmer-1 {
+  position: absolute;
+  height: 1px; width: 130%; left: -15%;
+  top: 45%;
+  background: linear-gradient(90deg, transparent, rgba(99,102,241,0.6), transparent);
+  animation: shimmerSweep 5s linear infinite;
+  pointer-events: none; z-index: 0;
+}
+
+/* ═══════════════════════════════════════════════════════
+   SECTION 4 — LEARN / OUTCOMES: Crisp sky blue clarity
+   Light sky bg, sky + cyan orbs, concentric pulse rings
+   ═══════════════════════════════════════════════════════ */
+.section-bg-learn {
+  background: linear-gradient(150deg, #f0f9ff 0%, #e0f2fe 55%, #bae6fd 100%);
+}
+
+.section-bg-learn .orb-1 {
+  width: 380px; height: 380px;
+  background: radial-gradient(circle, #0ea5e9 0%, transparent 68%);
+  top: -100px; right: 40px;
+  opacity: 0.2;
+  animation: orbFloat 13s ease-in-out infinite alternate;
+}
+.section-bg-learn .orb-2 {
+  width: 280px; height: 280px;
+  background: radial-gradient(circle, #38bdf8 0%, transparent 70%);
+  bottom: -70px; left: 20px;
+  opacity: 0.17;
+  animation: orbFloat2 16s ease-in-out infinite alternate;
+}
+
+.section-bg-learn .pulse-ring-1,
+.section-bg-learn .pulse-ring-2,
+.section-bg-learn .pulse-ring-3 {
+  position: absolute;
+  border-radius: 50%;
+  border: 1.5px solid rgba(14,165,233,0.28);
+  width: 320px; height: 320px;
+  bottom: -20px; right: 5%;
+  transform: translateX(30%);
+  pointer-events: none;
+  animation: pulseRing 6s ease-out infinite;
+}
+.section-bg-learn .pulse-ring-2 { animation-delay: -2s; }
+.section-bg-learn .pulse-ring-3 { animation-delay: -4s; }
+
+/* ═══════════════════════════════════════════════════════
+   SECTION 5 — RECOGNITION: Deep purple prestige
+   Dark violet bg, purple + magenta + rose orbs, shimmer
+   ═══════════════════════════════════════════════════════ */
+.section-bg-recognition {
+  background: linear-gradient(140deg, #1e0533 0%, #3b0764 50%, #581c87 100%);
+}
+
+.section-bg-recognition .orb-1 {
+  width: 440px; height: 440px;
+  background: radial-gradient(circle, #9333ea 0%, transparent 68%);
+  top: -100px; left: -60px;
+  opacity: 0.55;
+  animation: orbFloat 11s ease-in-out infinite alternate;
+}
+.section-bg-recognition .orb-2 {
+  width: 320px; height: 320px;
+  background: radial-gradient(circle, #c026d3 0%, transparent 70%);
+  top: 50px; right: -30px;
+  opacity: 0.42;
+  animation: orbFloat2 14s ease-in-out infinite alternate;
+}
+.section-bg-recognition .orb-3 {
+  width: 240px; height: 240px;
+  background: radial-gradient(circle, #e11d48 0%, transparent 70%);
+  bottom: -50px; left: 42%;
+  opacity: 0.35;
+  animation: orbFloat3 10s ease-in-out infinite alternate;
+}
+
+.section-bg-recognition .shimmer-1,
+.section-bg-recognition .shimmer-2 {
+  position: absolute;
+  height: 1px; width: 130%; left: -15%;
+  pointer-events: none; z-index: 0;
+}
+.section-bg-recognition .shimmer-1 {
+  top: 28%;
+  background: linear-gradient(90deg, transparent, rgba(192,38,211,0.55), transparent);
+  animation: shimmerSweep 7s linear infinite;
+}
+.section-bg-recognition .shimmer-2 {
+  top: 72%;
+  background: linear-gradient(90deg, transparent, rgba(147,51,234,0.45), transparent);
+  animation: shimmerSweep 10s linear infinite;
+  animation-delay: -5s;
+}
+
+/* ═══════════════════════════════════════════════════════
+   SECTION 6 — TESTIMONIALS: Fuchsia warmth
+   Soft fuchsia-pink bg, gentle orbs
+   ═══════════════════════════════════════════════════════ */
+.section-bg-testimonials {
+  background: linear-gradient(145deg, #fdf4ff 0%, #fae8ff 55%, #f5d0fe 100%);
+}
+
+.section-bg-testimonials .orb-1 {
+  width: 340px; height: 340px;
+  background: radial-gradient(circle, #d946ef 0%, transparent 68%);
+  top: -90px; right: 60px;
+  opacity: 0.18;
+  animation: orbFloat 14s ease-in-out infinite alternate;
+}
+.section-bg-testimonials .orb-2 {
+  width: 260px; height: 260px;
+  background: radial-gradient(circle, #a855f7 0%, transparent 70%);
+  bottom: -60px; left: 40px;
+  opacity: 0.15;
+  animation: orbFloat2 17s ease-in-out infinite alternate;
+}
+
+/* ═══════════════════════════════════════════════════════
+   SECTION 7 — ENROLL / FINAL CTA: Indigo night
+   Deep indigo bg, indigo + violet + blue orbs, shimmer
+   ═══════════════════════════════════════════════════════ */
+.section-bg-enroll {
+  background: linear-gradient(135deg, #030712 0%, #0f172a 50%, #1e1b4b 100%);
+}
+
+.section-bg-enroll .orb-1 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, #4f46e5 0%, transparent 68%);
+  top: -120px; left: -80px;
+  opacity: 0.5;
+  animation: orbFloat 12s ease-in-out infinite alternate;
+}
+.section-bg-enroll .orb-2 {
+  width: 360px; height: 360px;
+  background: radial-gradient(circle, #7c3aed 0%, transparent 70%);
+  top: 60px; right: -50px;
+  opacity: 0.42;
+  animation: orbFloat2 15s ease-in-out infinite alternate;
+}
+.section-bg-enroll .orb-3 {
+  width: 260px; height: 260px;
+  background: radial-gradient(circle, #2563eb 0%, transparent 70%);
+  bottom: -60px; left: 44%;
+  opacity: 0.35;
+  animation: orbFloat3 11s ease-in-out infinite alternate;
+}
+
+.section-bg-enroll .shimmer-1,
+.section-bg-enroll .shimmer-2 {
+  position: absolute;
+  height: 1px; width: 130%; left: -15%;
+  pointer-events: none; z-index: 0;
+}
+.section-bg-enroll .shimmer-1 {
+  top: 36%;
+  background: linear-gradient(90deg, transparent, rgba(79,70,229,0.6), transparent);
+  animation: shimmerSweep 6s linear infinite;
+}
+.section-bg-enroll .shimmer-2 {
+  top: 74%;
+  background: linear-gradient(90deg, transparent, rgba(124,58,237,0.5), transparent);
+  animation: shimmerSweep 8s linear infinite;
+  animation-delay: -4s;
+}
+
+/* ── Rising particles (JS-injected, shared style) ── */
+.anim-particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: particleRise linear infinite;
+  opacity: 0;
+  z-index: 0;
+}
+
+/* ── Wave dividers between sections ── */
+.wave-divider {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  line-height: 0;
+  z-index: 2;
+}
+.wave-divider svg {
+  display: block;
+  width: 100%;
+}
+
+/* ── Text contrast helpers for dark sections — see comprehensive block below ── */
+
+/* ── ALL dark sections: white text — SCOPED to exclude white card containers ──
+   The :not() chain prevents overrides from bleeding into bg-white/95, bg-white/90,
+   bg-white cards (carousel content card, certificate rows, etc.)
+   ─────────────────────────────────────────────────────────────────────────────── */
+
+/* Scope helper — any element that is NOT inside a white card */
+.section-bg-hero,
+.section-bg-journey,
+.section-bg-recognition,
+.section-bg-enroll {
+  color: #ffffff;
+}
+
+/* Section-level headings only — NOT inside white cards */
+.section-bg-hero    :is(h1,h2,h3,h4,.section-title,.display-title):not([class*="bg-white"]):not([class*="bg-card"]):not(.rounded-2xl *):not(.rounded-xl *),
+.section-bg-journey :is(h1,h2,h3,h4,.section-title,.display-title):not([class*="bg-white"]):not([class*="bg-card"]),
+.section-bg-recognition :is(h1,h2,h3,h4,.section-title):not([class*="bg-white"]):not([class*="bg-card"]),
+.section-bg-enroll  :is(h1,h2,h3,h4,.section-title,.display-title):not([class*="bg-white"]):not([class*="bg-card"]) {
+  color: #ffffff;
+}
+
+/* Direct section-shell headings — always white */
+.section-bg-journey .section-shell > div > h2,
+.section-bg-journey .section-shell > div > div > h2,
+.section-bg-recognition .mx-auto > div > h2,
+.section-bg-enroll .section-shell > div > div > h2 {
+  color: #ffffff !important;
+}
+
+/* Body text on dark bg — NOT inside white cards (bg-white/95 or similar) */
+.section-bg-hero    > * p:not([class*="text-"]):not(.rounded-2xl p):not(.rounded-xl p),
+.section-bg-journey > * p:not([class*="text-"]):not(.rounded-2xl p):not(.rounded-xl p),
+.section-bg-recognition > * p:not([class*="text-"]):not(.rounded-2xl p):not(.rounded-xl p),
+.section-bg-enroll  > * p:not([class*="text-"]):not(.rounded-2xl p):not(.rounded-xl p) {
+  color: rgba(220, 225, 255, 0.85);
+}
+
+/* muted-foreground — only on dark bg, not inside white cards */
+.section-bg-hero    .text-muted-foreground:not(.rounded-2xl .text-muted-foreground):not(.rounded-xl .text-muted-foreground),
+.section-bg-journey .text-muted-foreground:not(.rounded-2xl .text-muted-foreground):not(.rounded-xl .text-muted-foreground),
+.section-bg-recognition .text-muted-foreground:not(.rounded-2xl .text-muted-foreground):not(.rounded-xl .text-muted-foreground),
+.section-bg-enroll  .text-muted-foreground:not(.rounded-2xl .text-muted-foreground):not(.rounded-xl .text-muted-foreground) {
+  color: rgba(200, 210, 255, 0.78) !important;
+}
+
+/* text-foreground on dark bg — exclude white card interiors */
+.section-bg-hero    .text-foreground:not(.rounded-2xl .text-foreground):not(.rounded-xl .text-foreground),
+.section-bg-journey .text-foreground:not(.rounded-2xl .text-foreground):not(.rounded-xl .text-foreground),
+.section-bg-recognition .text-foreground:not(.rounded-2xl .text-foreground):not(.rounded-xl .text-foreground),
+.section-bg-enroll  .text-foreground:not(.rounded-2xl .text-foreground):not(.rounded-xl .text-foreground) {
+  color: #ffffff !important;
+}
+
+/* White card interiors — force back to dark text so nothing bleeds through */
+.section-bg-journey  [class*="bg-white"],
+.section-bg-recognition [class*="bg-white"],
+.section-bg-enroll   [class*="bg-white"] {
+  color: #1a1a2e !important;
+}
+.section-bg-journey  [class*="bg-white"] p,
+.section-bg-journey  [class*="bg-white"] h3,
+.section-bg-journey  [class*="bg-white"] li,
+.section-bg-journey  [class*="bg-white"] span,
+.section-bg-recognition [class*="bg-white"] p,
+.section-bg-recognition [class*="bg-white"] h3,
+.section-bg-recognition [class*="bg-white"] li,
+.section-bg-recognition [class*="bg-white"] span,
+.section-bg-enroll   [class*="bg-white"] p,
+.section-bg-enroll   [class*="bg-white"] h3,
+.section-bg-enroll   [class*="bg-white"] li,
+.section-bg-enroll   [class*="bg-white"] span {
+  color: #1e1e3a !important;
+}
+
+/* bg-red/bg-blue certificate rows inside recognition — force dark text */
+.section-bg-recognition [class*="bg-red"],
+.section-bg-recognition [class*="bg-blue"] {
+  color: inherit;
+}
+.section-bg-recognition [class*="bg-red"] p:not([class*="text-["]),
+.section-bg-recognition [class*="bg-blue"] p:not([class*="text-["]) {
+  color: #374151 !important;
+}
+
+/* Eyebrow badges */
+.section-bg-hero .eyebrow,
+.section-bg-journey .eyebrow,
+.section-bg-recognition .eyebrow,
+.section-bg-enroll .eyebrow {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.22);
+  color: rgba(210, 220, 255, 0.95);
+}
+
+/* Glass panels */
+.section-bg-hero .glass-panel,
+.section-bg-journey .glass-panel,
+.section-bg-recognition .glass-panel,
+.section-bg-enroll .glass-panel {
+  background: rgba(255,255,255,0.07) !important;
+  border-color: rgba(255,255,255,0.15) !important;
+  background-image: none !important;
+}
+
+/* Story cards */
+.section-bg-hero .story-card,
+.section-bg-journey .story-card,
+.section-bg-recognition .story-card,
+.section-bg-enroll .story-card {
+  background: rgba(255,255,255,0.07) !important;
+  border-color: rgba(255,255,255,0.14) !important;
+}
+
+/* Highlight panels */
+.section-bg-hero .highlight-panel,
+.section-bg-journey .highlight-panel,
+.section-bg-recognition .highlight-panel,
+.section-bg-enroll .highlight-panel {
+  background: rgba(255,255,255,0.06) !important;
+  border-color: rgba(255,255,255,0.12) !important;
+}
+
+/* Metric pills */
+.section-bg-hero .metric-pill,
+.section-bg-journey .metric-pill,
+.section-bg-recognition .metric-pill,
+.section-bg-enroll .metric-pill {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.2);
+  color: #e8edff;
+}
+
+/* Icon tiles */
+.section-bg-hero .icon-tile,
+.section-bg-journey .icon-tile,
+.section-bg-recognition .icon-tile,
+.section-bg-enroll .icon-tile {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.18);
+}
+
+/* Form inputs on dark bg */
+.section-bg-enroll input,
+.section-bg-enroll textarea {
+  background: rgba(255,255,255,0.08) !important;
+  border-color: rgba(255,255,255,0.2) !important;
+  color: #ffffff !important;
+}
+.section-bg-enroll input::placeholder,
+.section-bg-enroll textarea::placeholder {
+  color: rgba(200,210,255,0.5) !important;
+}
+
+/* Step numbers */
+.section-bg-enroll .text-primary\/30 {
+  color: rgba(160,180,255,0.5) !important;
+}
+
+/* ── Scroll fade-up animation ── */
+@keyframes fadeUpIn {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  opacity: 0;
+  animation: fadeUpIn 0.55s ease-out forwards;
+}
+.fade-up-delay-1 { animation-delay: 0.08s; }
+.fade-up-delay-2 { animation-delay: 0.16s; }
+.fade-up-delay-3 { animation-delay: 0.24s; }
+.fade-up-delay-4 { animation-delay: 0.32s; }
+
+/* ── Component classes ──────────────────────────────────────────── */
 
 @layer components {
   .page-shell {
@@ -320,7 +853,12 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
+  html { scroll-behavior: auto; }
+  .section-bg-orb,
+  .orb-1, .orb-2, .orb-3,
+  .shimmer-1, .shimmer-2,
+  .pulse-ring-1, .pulse-ring-2, .pulse-ring-3,
+  .anim-particle {
+    animation: none !important;
   }
 }
