@@ -47,9 +47,9 @@ const whyProgram = [
 ] as const;
 
 const testimonials = [
-  { quote: "We wanted help with confidence, but we also saw better posture, clearer speech, and more self-belief at home.", author: "Parent of a 12-year-old", stars: 5 },
-  { quote: "The program felt supportive, not intimidating. My child actually looked forward to speaking practice.",          author: "Parent of a 14-year-old", stars: 5 },
-  { quote: "Within two weeks we noticed a real shift in how she carries herself in conversations.",                          author: "Parent of an 11-year-old", stars: 5 },
+  { quote: "We wanted help with confidence, but we also saw better posture, clearer speech, and more self-belief at home.", author: "Priya M.", detail: "Parent of Aarav, Age 12", stars: 5 },
+  { quote: "The program felt supportive, not intimidating. My child actually looked forward to speaking practice.",          author: "Rahul S.", detail: "Parent of Diya, Age 14", stars: 5 },
+  { quote: "Within two weeks we noticed a real shift in how she carries herself in conversations.",                          author: "Anita K.", detail: "Parent of Riya, Age 11", stars: 5 },
 ];
 
 const awards = [
@@ -359,18 +359,16 @@ export function MasterclassLanding() {
 
       {/* ── 4. Recognition ── */}
       <section className="section-bg-recognition story-band">
-        <div className="mx-auto w-full max-w-5xl px-4 py-12 sm:px-6 lg:px-8">
-          <div className="mb-8 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <Badge variant="glass" className="eyebrow">Recognition & rewards</Badge>
-              <h2 className="section-title mt-3">Recognition that keeps motivation high.</h2>
-            </div>
-            <p className="max-w-xs text-sm leading-6 text-muted-foreground">
+        <div className="mx-auto w-full max-w-5xl px-4 py-10 sm:py-12 sm:px-6 lg:px-8">
+          <div className="mb-8 flex flex-col gap-2">
+            <Badge variant="glass" className="eyebrow self-start">Recognition & rewards</Badge>
+            <h2 className="section-title mt-3">Recognition that keeps motivation high.</h2>
+            <p className="text-sm leading-6" style={{ color: "rgba(220,225,255,0.85)" }}>
               Every student leaves with proof of progress. Top performers get extra recognition.
             </p>
           </div>
 
-          <div className="grid gap-4 lg:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {/* Certificates */}
             <div className="rounded-2xl border border-border/70 bg-card/80 p-4 backdrop-blur-xl flex flex-col gap-3">
               <div className="flex items-center gap-2">
@@ -516,9 +514,8 @@ export function MasterclassLanding() {
                     <Star key={s} className="size-3.5 fill-primary text-primary" />
                   ))}
                 </div>
-                <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
-                  — {item.author}
-                </p>
+                <p className="text-sm font-bold text-foreground">— {item.author}</p>
+                <p className="text-xs text-muted-foreground mt-0.5">{item.detail}</p>
               </div>
             </motion.div>
           ))}
@@ -552,6 +549,17 @@ export function MasterclassLanding() {
               <p className="section-copy mt-4 text-muted-foreground">
                 Parents can move from enquiry to enrollment in a few simple steps.
               </p>
+              {/* Urgency banner */}
+              <div className="mt-5 flex flex-wrap gap-2">
+                <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-bold"
+                  style={{ background: "oklch(0.72 0.19 46.0 / 15%)", color: "oklch(0.55 0.19 46.0)", border: "1px solid oklch(0.72 0.19 46.0 / 30%)" }}>
+                  🔥 Next batch starting May 15
+                </div>
+                <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-bold"
+                  style={{ background: "oklch(0.72 0.19 46.0 / 15%)", color: "oklch(0.55 0.19 46.0)", border: "1px solid oklch(0.72 0.19 46.0 / 30%)" }}>
+                  ⚡ Only 12 seats left
+                </div>
+              </div>
             </motion.div>
             <div className="mt-8 grid gap-4">
               {[
@@ -584,9 +592,10 @@ export function MasterclassLanding() {
                 with a stronger voice in school, friendships, and beyond.
               </p>
               <div className="mt-5 flex flex-wrap gap-3">
-                <Button variant="hero" size="lg" className="h-12 rounded-full px-7 text-base">
+                <button className="btn-cta">
+                  <Sparkles className="size-4" />
                   Book Your Seat Now
-                </Button>
+                </button>
               </div>
               <p className="mt-3 text-xs text-muted-foreground">Interactive live online batches · limited seats</p>
             </div>

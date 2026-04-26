@@ -121,6 +121,10 @@
   --muted-foreground: oklch(0.50 0.055 272.0);
   --accent: oklch(0.86 0.09 268.0);
   --accent-foreground: oklch(0.25 0.055 275.0);
+  /* ── Warm orange — used for hero CTAs, Register Now, Book Seat ── */
+  --cta: oklch(0.72 0.19 46.0);
+  --cta-foreground: oklch(0.99 0.005 80.0);
+  --cta-hover: oklch(0.65 0.21 44.0);
   --destructive: oklch(0.63 0.237 25.1);
   --destructive-foreground: oklch(0.99 0.008 84.2);
   --border: oklch(0.84 0.035 272.0 / 70%);
@@ -737,7 +741,12 @@
   color: rgba(160,180,255,0.5) !important;
 }
 
-/* ── Scroll fade-up animation ── */
+/* ── Weekly carousel tab column — force white text to win over dark section overrides ── */
+.section-bg-journey [style*="isolation: isolate"] span,
+.section-bg-journey [style*="isolation: isolate"] p {
+  color: inherit !important;
+  -webkit-text-fill-color: inherit !important;
+}
 @keyframes fadeUpIn {
   from {
     opacity: 0;
@@ -850,6 +859,30 @@
       color-mix(in oklab, var(--secondary) 12%, var(--card))
     );
   }
+
+  /* ── Warm orange CTA button — used on primary CTAs ── */
+  .btn-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--cta);
+    color: var(--cta-foreground);
+    border: none;
+    border-radius: 9999px;
+    padding: 0 28px;
+    height: 48px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px oklch(0.72 0.19 46.0 / 35%);
+  }
+  .btn-cta:hover {
+    background: var(--cta-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 28px oklch(0.72 0.19 46.0 / 45%);
+  }
+  .btn-cta:active { transform: translateY(0); }
 }
 
 @media (prefers-reduced-motion: reduce) {

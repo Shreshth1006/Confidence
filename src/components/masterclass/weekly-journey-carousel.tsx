@@ -93,8 +93,9 @@ export function WeeklyJourneyCarousel() {
       {/* Left tabs + right image */}
       <div className="grid grid-cols-[200px_1fr] sm:grid-cols-[230px_1fr]">
 
-        {/* LEFT: tabs */}
-        <div className="flex flex-col border-r border-white/20" style={{ background: "rgba(0,0,0,0.35)" }}>
+        {/* LEFT: tabs — isolation prevents dark section CSS from overriding inline text colors */}
+        <div className="flex flex-col border-r border-white/20"
+          style={{ background: "rgba(255,255,255,0.05)", isolation: "isolate" }}>
           {weeks.map((w, i) => {
             const TIcon = w.icon;
             const on = active === i;
@@ -116,42 +117,48 @@ export function WeeklyJourneyCarousel() {
                   />
                 )}
 
-                {/* Big number + icon row */}
+                {/* Big number */}
                 <div className="flex items-center justify-between">
                   <span
-                    className="text-[1.7rem] font-black leading-none tabular-nums transition-all duration-300"
+                    className="text-[1.7rem] font-black leading-none tabular-nums"
                     style={{
-                      color: on ? w.accent : "#ffffff",
+                      color: on ? w.accent : "#fff",
                       textShadow: on ? `0 0 20px ${w.accent}88` : "none",
+                      WebkitTextFillColor: on ? w.accent : "#fff",
                     }}
                   >
                     {w.num}
                   </span>
                   <div
-                    className="flex h-8 w-8 items-center justify-center rounded-xl border transition-all duration-300"
+                    className="flex h-8 w-8 items-center justify-center rounded-xl border"
                     style={{
-                      background: on ? `${w.accent}30` : "rgba(255,255,255,0.18)",
-                      borderColor: on ? `${w.accent}60` : "rgba(255,255,255,0.30)",
-                      color: on ? w.accent : "#ffffff",
+                      background: on ? `${w.accent}30` : "rgba(255,255,255,0.15)",
+                      borderColor: on ? `${w.accent}60` : "rgba(255,255,255,0.5)",
+                      color: "#fff",
+                      WebkitTextFillColor: "#fff",
                     }}
                   >
-                    <TIcon className="size-3.5" />
+                    <TIcon className="size-3.5" style={{ color: on ? w.accent : "#fff" }} />
                   </div>
                 </div>
 
                 {/* Week label */}
                 <p
-                  className="mt-1.5 text-[0.58rem] font-bold uppercase tracking-[0.2em] transition-colors duration-300"
-                  style={{ color: on ? w.accent : "#ffffff" }}
+                  className="mt-1.5 text-[0.58rem] font-bold uppercase tracking-[0.2em]"
+                  style={{
+                    color: on ? w.accent : "#fff",
+                    WebkitTextFillColor: on ? w.accent : "#fff",
+                  }}
                 >
                   {w.week}
                 </p>
 
                 {/* Title */}
                 <p
-                  className="mt-0.5 text-xs leading-snug transition-all duration-300"
+                  className="mt-0.5 text-xs leading-snug"
                   style={{
-                    color: on ? "#fff" : "#ffffff",
+                    color: "#fff",
+                    WebkitTextFillColor: "#fff",
                     fontWeight: on ? 700 : 500,
                   }}
                 >

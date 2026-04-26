@@ -2,26 +2,24 @@ import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { ArrowRight, Sparkles, Star, WandSparkles } from "lucide-react";
 
-// ── All 5 stage images ───────────────────────────────────────────────────────
-import shyStudent      from "@/assets/shy-student.jpg";
-import unsureStudent   from "@/assets/unsure.png";
-import findingVoice    from "@/assets/finding voice.png";
+import shyStudent       from "@/assets/shy-student.jpg";
+import unsureStudent    from "@/assets/unsure.png";
+import findingVoice     from "@/assets/finding voice.png";
 import confidentStudent from "@/assets/confident-student.jpg";
-import leader          from "@/assets/leader .png";
+import leader           from "@/assets/leader .png";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
-// ── Story steps — each has its own image ────────────────────────────────────
 const storySteps = [
-  { label: "Shy...",               image: shyStudent,       alt: "A shy child at the start of the journey" },
-  { label: "Unsure...",            image: unsureStudent,    alt: "A child who is unsure but curious" },
-  { label: "Finding their voice...", image: findingVoice,  alt: "A child finding their voice and confidence" },
-  { label: "Confident.",           image: confidentStudent, alt: "A confident child ready to speak" },
-  { label: "A Leader.",            image: leader,           alt: "A child who has become a confident young leader" },
+  { label: "Shy...",               image: shyStudent,        alt: "A shy child at the start of the journey" },
+  { label: "Unsure...",            image: unsureStudent,     alt: "A child who is unsure but curious" },
+  { label: "Finding their voice...", image: findingVoice,   alt: "A child finding their voice and confidence" },
+  { label: "Confident.",           image: confidentStudent,  alt: "A confident child ready to speak" },
+  { label: "A Leader.",            image: leader,            alt: "A child who has become a confident young leader" },
 ];
 
-const STEP_DURATION = 2400; // ms per step
+const STEP_DURATION = 2400;
 
 export function TransformationHero() {
   const reduceMotion = useReducedMotion();
@@ -40,17 +38,17 @@ export function TransformationHero() {
     return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
   }, []);
 
-  const progress = activeStep / (storySteps.length - 1); // 0 → 1
-  const barWidth  = Math.max(6, progress * 100);
+  const progress    = activeStep / (storySteps.length - 1);
+  const barWidth    = Math.max(6, progress * 100);
   const glowOpacity = 0.15 + progress * 0.55;
 
   return (
     <section className="relative isolate">
-      <div className="flex min-h-screen items-center overflow-hidden py-8 md:py-10">
-        <div className="section-shell w-full grid gap-10 xl:grid-cols-2 xl:items-center xl:gap-12">
+      <div className="flex min-h-screen items-center overflow-hidden py-6 md:py-10">
+        <div className="section-shell w-full grid gap-6 xl:grid-cols-2 xl:items-center xl:gap-12">
 
           {/* ── LEFT: Text content ── */}
-          <div className="relative z-10 flex flex-col gap-6 order-2 xl:order-1">
+          <div className="relative z-10 flex flex-col gap-4 sm:gap-6 order-2 xl:order-1">
 
             <Badge variant="glass" className="eyebrow self-start">
               <Sparkles className="size-3.5" />
@@ -68,7 +66,7 @@ export function TransformationHero() {
               children speak clearly, show up confidently, and carry themselves like young leaders.
             </p>
 
-            {/* Story step pills — clickable */}
+            {/* Story step pills */}
             <div className="flex flex-wrap gap-2">
               {storySteps.map((step, index) => (
                 <motion.button
@@ -90,10 +88,10 @@ export function TransformationHero() {
 
             {/* CTA buttons */}
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-              <Button variant="hero" size="lg" className="h-12 rounded-full px-7 text-base">
-                Start Your Child's Transformation
-                <ArrowRight className="size-4" />
-              </Button>
+              <button className="btn-cta">
+                <Sparkles className="size-4" />
+                Book a Free Demo Class
+              </button>
               <Button variant="glass" size="lg" className="h-12 rounded-full px-7 text-base">
                 Register Now
               </Button>
@@ -105,22 +103,26 @@ export function TransformationHero() {
             </div>
 
             {/* Stats row */}
-            <div className="grid grid-cols-3 gap-3 pt-1">
+            <div className="grid grid-cols-3 gap-2 sm:gap-3 pt-1">
               {[
-                ["60–90 min",    "Live session weekly"],
-                ["40–50 seats",  "Small, personal batch"],
+                ["60–90 min",     "Live session weekly"],
+                ["40–50 seats",   "Small, personal batch"],
                 ["Final showcase","Parents see the change"],
               ].map(([title, detail]) => (
-                <div key={title} className="glass-panel flex flex-col gap-1 rounded-2xl p-4">
-                  <p className="text-sm font-bold text-foreground leading-tight">{title}</p>
-                  <p className="text-xs leading-snug text-muted-foreground">{detail}</p>
+                <div key={title} className="glass-panel flex flex-col gap-1 rounded-2xl p-3 sm:p-4">
+                  <p className="text-xs sm:text-sm font-bold text-foreground leading-tight">{title}</p>
+                  <p className="text-[0.65rem] sm:text-xs leading-snug text-muted-foreground">{detail}</p>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* ── RIGHT: Image panel ── */}
-          <div className="relative order-1 xl:order-2 w-full h-[420px] sm:h-[520px] md:h-[580px] xl:h-[640px]">
+          {/* ── RIGHT: Image panel ──
+              Mobile:  240px tall — compact, doesn't dominate the screen
+              Tablet:  420px
+              Desktop: 640px — unchanged from original
+          ── */}
+          <div className="relative order-1 xl:order-2 w-full h-[240px] sm:h-[420px] md:h-[500px] xl:h-[640px]">
 
             {/* Ambient glow */}
             <motion.div
@@ -130,7 +132,7 @@ export function TransformationHero() {
               className="absolute inset-0 rounded-[2rem] bg-primary/10 blur-3xl"
             />
 
-            {/* Floating chips */}
+            {/* Floating chips — desktop only, unchanged */}
             <motion.div
               className="absolute left-3 top-6 floating-chip hidden xl:flex z-20"
               animate={reduceMotion ? undefined : { y: [0, -8, 0] }}
@@ -152,14 +154,11 @@ export function TransformationHero() {
             {/* Main image card */}
             <div className="glass-panel relative h-full w-full overflow-hidden rounded-[2rem]">
 
-              {/* Top & bottom fades */}
               <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-20 bg-gradient-to-b from-background/60 to-transparent" />
               <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-40 bg-gradient-to-t from-background/80 to-transparent" />
 
-              {/* ── All 5 images stacked, only active one visible ── */}
               {storySteps.map((step, index) => {
                 const isActive = index === activeStep;
-                // Each image gently rises/scales when it becomes active
                 return (
                   <motion.img
                     key={step.label}
@@ -173,26 +172,23 @@ export function TransformationHero() {
                       y:       isActive ? 0 : 20,
                     }}
                     transition={{
-                      duration: 0.85,
-                      ease: "easeInOut",
-                      // stagger: active image fades in slightly after inactive fades out
+                      duration: 0.85, ease: "easeInOut",
                       opacity: { duration: 0.75 },
                       scale:   { duration: 0.85 },
                       y:       { duration: 0.85 },
                     }}
-                    // PNG images need object-contain; jpgs look fine either way
                     className="absolute bottom-0 left-1/2 z-[2] h-[82%] w-auto max-w-[70%] -translate-x-1/2 object-contain"
                     style={{ zIndex: isActive ? 3 : 2 }}
                   />
                 );
               })}
 
-              {/* Pulse card overlay */}
-              <div className="absolute inset-x-4 bottom-4 z-20 sm:inset-x-6 sm:bottom-6">
-                <div className="glass-panel rounded-2xl p-4 sm:p-5">
+              {/* Pulse card — compact on mobile */}
+              <div className="absolute inset-x-3 bottom-3 z-20 sm:inset-x-6 sm:bottom-6">
+                <div className="glass-panel rounded-2xl p-3 sm:p-5">
                   <div className="flex items-center justify-between gap-4">
                     <div>
-                      <p className="text-[0.65rem] font-semibold uppercase tracking-widest text-muted-foreground sm:text-xs">
+                      <p className="text-[0.6rem] font-semibold uppercase tracking-widest text-muted-foreground sm:text-xs">
                         Transformation pulse
                       </p>
                       <AnimatePresence mode="wait">
@@ -201,15 +197,15 @@ export function TransformationHero() {
                           initial={{ opacity: 0, y: 8 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -8 }}
-                          transition={{ duration: 0.35, ease: "easeOut" }}
-                          className="mt-1 text-base font-extrabold text-foreground sm:text-xl"
+                          transition={{ duration: 0.35 }}
+                          className="mt-1 text-sm font-extrabold text-foreground sm:text-xl"
                         >
                           {storySteps[activeStep].label}
                         </motion.p>
                       </AnimatePresence>
                     </div>
                     <div className="text-right shrink-0">
-                      <p className="text-xs text-muted-foreground">Journey stage</p>
+                      <p className="text-[0.6rem] text-muted-foreground sm:text-xs">Journey stage</p>
                       <AnimatePresence mode="wait">
                         <motion.p
                           key={activeStep}
@@ -217,7 +213,7 @@ export function TransformationHero() {
                           animate={{ opacity: 1 }}
                           exit={{ opacity: 0 }}
                           transition={{ duration: 0.3 }}
-                          className="text-base font-bold text-primary sm:text-lg"
+                          className="text-sm font-bold text-primary sm:text-lg"
                         >
                           0{activeStep + 1}/05
                         </motion.p>
@@ -225,8 +221,7 @@ export function TransformationHero() {
                     </div>
                   </div>
 
-                  {/* Progress bar */}
-                  <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-muted">
+                  <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-muted sm:mt-3">
                     <motion.div
                       className="h-full rounded-full bg-primary"
                       animate={{ width: `${barWidth}%` }}
@@ -234,8 +229,7 @@ export function TransformationHero() {
                     />
                   </div>
 
-                  {/* Step dots */}
-                  <div className="mt-3 flex items-center gap-1.5">
+                  <div className="mt-2 flex items-center gap-1.5 sm:mt-3">
                     {storySteps.map((_, i) => (
                       <motion.button
                         key={i}
@@ -243,7 +237,7 @@ export function TransformationHero() {
                         aria-label={`Go to stage ${i + 1}`}
                         onClick={() => { setActiveStep(i); startTimer(); }}
                         animate={{ width: i === activeStep ? 24 : 8 }}
-                        transition={{ duration: 0.3, ease: "easeOut" }}
+                        transition={{ duration: 0.3 }}
                         className={`h-1.5 rounded-full transition-colors ${
                           i === activeStep ? "bg-primary" : "bg-muted-foreground/40"
                         }`}
@@ -254,7 +248,7 @@ export function TransformationHero() {
               </div>
             </div>
 
-            {/* Auto-play hint */}
+            {/* Auto-play hint — desktop only */}
             <motion.div
               className="mx-auto mt-4 hidden w-fit lg:flex"
               animate={reduceMotion ? undefined : { y: [0, 6, 0] }}

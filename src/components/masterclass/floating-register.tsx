@@ -54,15 +54,13 @@ export function FloatingRegister({ onQuizClick }: FloatingRegisterProps) {
             transition={{ type: "spring", stiffness: 220, damping: 22 }}
             className="fixed bottom-5 right-3 z-50 sm:bottom-8 sm:right-6"
           >
-            <Button
-              variant="hero"
-              size="lg"
-              className="h-12 rounded-full px-5 text-sm font-bold shadow-2xl sm:h-14 sm:px-7 sm:text-base"
+            <button
+              className="btn-cta h-12 px-5 text-sm shadow-2xl sm:h-14 sm:px-7 sm:text-base"
               onClick={() => smoothScrollTo("register")}
             >
               <Sparkles className="size-4" />
               Register Now
-            </Button>
+            </button>
           </motion.div>
         </>
       )}
