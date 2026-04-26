@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   Award, BadgeCheck, BookOpen, BrainCircuit, CalendarRange, Check,
-  Crown, Gift, GraduationCap, HandCoins, Lightbulb, Medal, Quote,
-  ShieldCheck, Sparkles, Star, Target, Trophy, Users, Video, WandSparkles, X,
+  ChevronDown, Crown, Gift, GraduationCap, HandCoins, HelpCircle,
+  Lightbulb, Medal, MessageCircle, Mic2, Quote, ShieldCheck, Sparkles,
+  Star, Target, Trophy, Users, Video, WandSparkles, X,
 } from "lucide-react";
 import { FloatingRegister } from "@/components/masterclass/floating-register";
 import { ShyConfidenceQuiz } from "@/components/masterclass/shy-confidence-quiz";
@@ -65,6 +66,25 @@ const giveaways = {
   top: ["Books or learning kits", "Trophies or medals", "Gift vouchers", "Featured recognition"],
 };
 
+const perfectFor = [
+  "Children who are shy or hesitant to speak up",
+  "Students who want to do better in class presentations",
+  "Kids who struggle with confidence in social situations",
+  "Young learners preparing for school debates or events",
+  "Anyone who wants to build a stronger personality early",
+];
+
+const faqs = [
+  { q: "What age group is this program for?", a: "The program is designed for students aged 10–16. The content and activities are structured to be engaging and relevant for this age group." },
+  { q: "Is it live or pre-recorded?", a: "All sessions are fully live and interactive. Students participate in real-time activities, role plays, and get personalised feedback from the trainer." },
+  { q: "How many students are in each batch?", a: "Each batch is limited to 40–50 students to ensure every child gets attention, feedback, and a chance to participate actively." },
+  { q: "What is the program fee?", a: "The program fee is ₹999 for the full 4-week masterclass. This includes 4 live sessions, a digital certificate, a personality development workbook, and a habit tracker guide." },
+  { q: "Will my child receive a certificate?", a: "Yes! All participants who meet attendance requirements receive a Certificate of Completion. Top performers also receive a Certificate of Excellence with Times of India recognition." },
+  { q: "What if we miss a session?", a: "We understand schedules can be busy. Please reach out to our team if you need to miss a session and we'll do our best to accommodate." },
+  { q: "How do I pay and confirm the seat?", a: "After filling the registration form, you'll receive payment details. Once the fee is paid, your seat is confirmed and you'll receive batch timing and joining details." },
+  { q: "Is there a refund policy?", a: "Please contact our team at the time of registration for details on our refund and cancellation policy." },
+];
+
 export function MasterclassLanding() {
   useSectionAnimations();
 
@@ -72,6 +92,7 @@ export function MasterclassLanding() {
   const [activeLearnTab, setActiveLearnTab] = useState<"learn" | "outcomes">("learn");
   const [quizOpen,       setQuizOpen]       = useState(false);
   const [activeAward,    setActiveAward]    = useState(0);
+  const [openFaq,        setOpenFaq]        = useState<number | null>(null);
   const outcomesRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -534,6 +555,133 @@ export function MasterclassLanding() {
         </div>
       </section>
 
+      {/* ── 5.5 Perfect For ── */}
+      <section className="section-bg-program section-shell py-14">
+        <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
+          <motion.div
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.5 }}
+          >
+            <Badge variant="glass" className="eyebrow">Is this right for your child?</Badge>
+            <h2 className="section-title mt-4">Perfect for students who want to grow.</h2>
+            <p className="section-copy mt-4 text-muted-foreground">
+              This program is built for children who are ready to step out of their shell — even if they don't know it yet.
+            </p>
+          </motion.div>
+          <div className="grid gap-3">
+            {perfectFor.map((item, i) => (
+              <motion.div
+                key={item}
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.08 }}
+                className="flex items-start gap-3 rounded-2xl border border-border/60 bg-card/80 p-4 backdrop-blur-xl"
+                style={{ boxShadow: "var(--shadow-soft)" }}
+              >
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary mt-0.5">
+                  <Check className="size-4" />
+                </div>
+                <p className="text-sm font-semibold leading-6 text-foreground">{item}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 5.6 Trainer Profile + Pricing ── */}
+      <section className="section-bg-learn section-shell py-14">
+        <div className="grid gap-8 lg:grid-cols-2 lg:items-start">
+
+          {/* Trainer card */}
+          <motion.div
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.5 }}
+            className="rounded-2xl border border-border/70 bg-card/90 p-6 backdrop-blur-xl"
+            style={{ boxShadow: "var(--shadow-soft)" }}
+          >
+            <Badge variant="glass" className="eyebrow mb-4">Your trainer</Badge>
+            <div className="flex items-start gap-5">
+              {/* Avatar placeholder */}
+              <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl border-2 border-primary/30 bg-primary/10 text-primary text-2xl font-black">
+                T
+              </div>
+              <div>
+                <h3 className="text-xl font-extrabold text-foreground">Expert Trainer</h3>
+                <p className="mt-1 text-sm font-semibold text-primary">Personality Development Coach</p>
+                <p className="mt-3 text-sm leading-6 text-muted-foreground">
+                  A certified personality development and public speaking coach with years of experience
+                  working with children aged 10–16. Trained in building confidence, communication, and
+                  emotional intelligence through practical, engaging sessions.
+                </p>
+              </div>
+            </div>
+            <div className="mt-5 grid grid-cols-3 gap-3 border-t border-border/40 pt-5">
+              {[["500+", "Students trained"], ["4.9★", "Average rating"], ["3+ yrs", "Experience"]].map(([val, label]) => (
+                <div key={label} className="text-center">
+                  <p className="text-lg font-extrabold text-primary">{val}</p>
+                  <p className="mt-0.5 text-xs text-muted-foreground">{label}</p>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Pricing card */}
+          <motion.div
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            <Badge variant="glass" className="eyebrow mb-4">Program fee</Badge>
+            <div className="rounded-2xl border-2 border-primary/40 bg-card/90 p-6 backdrop-blur-xl"
+              style={{ boxShadow: "var(--shadow-lift)" }}>
+              {/* Price */}
+              <div className="flex items-end gap-2">
+                <span className="text-5xl font-black text-foreground">₹999</span>
+                <span className="mb-2 text-sm text-muted-foreground">/ full program</span>
+              </div>
+              <p className="mt-1 text-sm text-muted-foreground">One-time payment · No hidden charges</p>
+
+              <div className="my-5 h-px bg-border/50" />
+
+              {/* What's included */}
+              <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-3">Everything included</p>
+              <div className="grid gap-2">
+                {[
+                  "4 live interactive sessions (60–90 min each)",
+                  "Personalised feedback every week",
+                  "Personality development workbook (PDF)",
+                  "Habit tracker & confidence guide",
+                  "Digital certificate of completion",
+                  "Final showcase presentation",
+                  "Chance to win awards & TOI recognition",
+                ].map((item) => (
+                  <div key={item} className="flex items-start gap-2 text-sm text-foreground">
+                    <Check className="size-4 shrink-0 text-primary mt-0.5" />
+                    {item}
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-6">
+                <button className="btn-cta w-full justify-center">
+                  <Sparkles className="size-4" />
+                  Enroll for ₹999
+                </button>
+                <p className="mt-3 text-center text-xs text-muted-foreground">
+                  🔥 Next batch starting May 15 · Only 12 seats left
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* ── 6. Enroll ── */}
       <section id="register" className="section-bg-enroll section-shell pb-24">
         <div className="grid gap-10 lg:grid-cols-2 lg:items-start">
@@ -549,7 +697,6 @@ export function MasterclassLanding() {
               <p className="section-copy mt-4 text-muted-foreground">
                 Parents can move from enquiry to enrollment in a few simple steps.
               </p>
-              {/* Urgency banner */}
               <div className="mt-5 flex flex-wrap gap-2">
                 <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-bold"
                   style={{ background: "oklch(0.72 0.19 46.0 / 15%)", color: "oklch(0.55 0.19 46.0)", border: "1px solid oklch(0.72 0.19 46.0 / 30%)" }}>
@@ -564,7 +711,7 @@ export function MasterclassLanding() {
             <div className="mt-8 grid gap-4">
               {[
                 ["01", "Fill the registration form", "Share student and parent details."],
-                ["02", "Pay the program fee",        "Secure the seat and confirm participation."],
+                ["02", "Pay the program fee — ₹999", "One-time payment. Seat confirmed instantly."],
                 ["03", "Receive confirmation",       "Get the schedule, batch details, and next steps."],
               ].map(([step, title, copy], i) => (
                 <motion.div
@@ -601,25 +748,72 @@ export function MasterclassLanding() {
             </div>
           </div>
 
-          <div className="glass-panel grid gap-4 p-6 sm:grid-cols-2 sm:p-8">
-            <div className="sm:col-span-2">
-              <Badge variant="glass" className="eyebrow">Request a call back</Badge>
-              <h3 className="mt-3 text-xl font-extrabold text-foreground">
-                Need help deciding if this is the right fit?
-              </h3>
-              <p className="mt-2 text-sm text-muted-foreground">
-                We'll respond with program details, fees, and timing.
-              </p>
+          {/* Right column: Form + FAQ */}
+          <div className="flex flex-col gap-6">
+            {/* Callback form */}
+            <div className="glass-panel grid gap-4 p-6 sm:grid-cols-2 sm:p-8">
+              <div className="sm:col-span-2">
+                <Badge variant="glass" className="eyebrow">Request a call back</Badge>
+                <h3 className="mt-3 text-xl font-extrabold text-foreground">
+                  Need help deciding if this is the right fit?
+                </h3>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  We'll respond with program details, fees, and timing.
+                </p>
+              </div>
+              <Input className="form-field" placeholder="Parent name"   aria-label="Parent name" />
+              <Input className="form-field" placeholder="Phone number"  aria-label="Phone number" />
+              <Input className="form-field" placeholder="Email address" aria-label="Email address" />
+              <Input className="form-field" placeholder="Child age"     aria-label="Child age" />
+              <Textarea className="form-area sm:col-span-2" placeholder="Tell us what you'd like help with" />
+              <div className="sm:col-span-2">
+                <Button variant="hero" size="lg" className="h-12 rounded-full px-7 text-base">
+                  Request a Call Back
+                </Button>
+              </div>
             </div>
-            <Input className="form-field" placeholder="Parent name"   aria-label="Parent name" />
-            <Input className="form-field" placeholder="Phone number"  aria-label="Phone number" />
-            <Input className="form-field" placeholder="Email address" aria-label="Email address" />
-            <Input className="form-field" placeholder="Child age"     aria-label="Child age" />
-            <Textarea className="form-area sm:col-span-2" placeholder="Tell us what you'd like help with" />
-            <div className="sm:col-span-2">
-              <Button variant="hero" size="lg" className="h-12 rounded-full px-7 text-base">
-                Request a Call Back
-              </Button>
+
+            {/* FAQ — sits right below the form */}
+            <div className="rounded-2xl border border-border/70 bg-card/10 backdrop-blur-xl overflow-hidden">
+              <div className="px-5 py-4 border-b border-white/10">
+                <div className="flex items-center gap-2">
+                  <HelpCircle className="size-4 text-primary" />
+                  <h3 className="text-sm font-extrabold" style={{ color: "#fff" }}>Frequently asked questions</h3>
+                </div>
+              </div>
+              <div className="divide-y divide-white/10">
+                {faqs.map((faq, i) => (
+                  <div key={faq.q}>
+                    <button
+                      type="button"
+                      onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                      className="flex w-full items-center justify-between gap-4 px-5 py-3.5 text-left"
+                    >
+                      <span className="text-sm font-semibold" style={{ color: "#fff" }}>{faq.q}</span>
+                      <motion.div
+                        animate={{ rotate: openFaq === i ? 180 : 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="shrink-0"
+                      >
+                        <ChevronDown className="size-4" style={{ color: "rgba(255,255,255,0.6)" }} />
+                      </motion.div>
+                    </button>
+                    <AnimatePresence>
+                      {openFaq === i && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.25 }}
+                          className="overflow-hidden"
+                        >
+                          <p className="px-5 pb-4 text-sm leading-6" style={{ color: "rgba(200,210,255,0.8)" }}>{faq.a}</p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
