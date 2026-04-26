@@ -741,9 +741,17 @@
   color: rgba(160,180,255,0.5) !important;
 }
 
-/* ── Weekly carousel tab column — force white text to win over dark section overrides ── */
+/* ── Weekly carousel tab column — force ALL text white ── */
 .section-bg-journey [style*="isolation: isolate"] span,
-.section-bg-journey [style*="isolation: isolate"] p {
+.section-bg-journey [style*="isolation: isolate"] p,
+.section-bg-journey [style*="isolation: isolate"] button span,
+.section-bg-journey [style*="isolation: isolate"] button p {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+/* Progress label at bottom */
+.section-bg-journey [style*="isolation: isolate"] p[style*="color"],
+.section-bg-journey [style*="isolation: isolate"] span[style*="color"] {
   color: inherit !important;
   -webkit-text-fill-color: inherit !important;
 }
