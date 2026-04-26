@@ -772,7 +772,7 @@
   }
 
   .section-shell {
-    @apply relative mx-auto w-full max-w-7xl px-4 py-20 sm:px-6 md:py-24 lg:px-8 2xl:max-w-[1400px];
+    @apply relative mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 sm:py-16 md:py-20 lg:px-8 lg:py-24 2xl:max-w-[1400px];
   }
 
   .section-split {
@@ -785,12 +785,12 @@
 
   .display-title {
     font-family: var(--font-display);
-    @apply text-balance text-4xl font-extrabold leading-[1.02] sm:text-5xl md:text-6xl lg:text-7xl;
+    @apply text-balance text-3xl font-extrabold leading-[1.02] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl;
   }
 
   .section-title {
     font-family: var(--font-display);
-    @apply text-balance text-3xl font-extrabold leading-tight sm:text-4xl md:text-5xl;
+    @apply text-balance text-2xl font-extrabold leading-tight sm:text-3xl md:text-4xl lg:text-5xl;
   }
 
   .section-copy {
