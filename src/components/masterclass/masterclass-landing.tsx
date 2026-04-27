@@ -11,6 +11,12 @@ import { ShyConfidenceQuiz } from "@/components/masterclass/shy-confidence-quiz"
 import { TOIHeader } from "@/components/masterclass/toi-header";
 import { TransformationHero } from "@/components/masterclass/transformation-hero";
 import { WeeklyJourneyCarousel } from "@/components/masterclass/weekly-journey-carousel";
+import certificate from "@/assets/certificate.png";
+import awardImg0 from "@/assets/childofsession.png";
+import awardImg1 from "@/assets/speaker.png";
+import awardImg2 from "@/assets/mostimprovedstudent.png";
+import awardImg3 from "@/assets/starcommunicator.png";
+import awardImg4 from "@/assets/bestteamplayer.png";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -78,7 +84,7 @@ const faqs = [
   { q: "What age group is this program for?", a: "The program is designed for students aged 10–16. The content and activities are structured to be engaging and relevant for this age group." },
   { q: "Is it live or pre-recorded?", a: "All sessions are fully live and interactive. Students participate in real-time activities, role plays, and get personalised feedback from the trainer." },
   { q: "How many students are in each batch?", a: "Each batch is limited to 40–50 students to ensure every child gets attention, feedback, and a chance to participate actively." },
-  { q: "What is the program fee?", a: "The program fee is ₹999 for the full 4-week masterclass. This includes 4 live sessions, a digital certificate, a personality development workbook, and a habit tracker guide." },
+  { q: "What is the program fee?", a: "The program fee is ₹9,999 (early bird price till May 15, after which it goes to ₹14,999). This includes 4 live sessions, a digital certificate, a personality development workbook, and a habit tracker guide." },
   { q: "Will my child receive a certificate?", a: "Yes! All participants who meet attendance requirements receive a Certificate of Completion. Top performers also receive a Certificate of Excellence with Times of India recognition." },
   { q: "What if we miss a session?", a: "We understand schedules can be busy. Please reach out to our team if you need to miss a session and we'll do our best to accommodate." },
   { q: "How do I pay and confirm the seat?", a: "After filling the registration form, you'll receive payment details. Once the fee is paid, your seat is confirmed and you'll receive batch timing and joining details." },
@@ -381,129 +387,160 @@ export function MasterclassLanding() {
       {/* ── 4. Recognition ── */}
       <section className="section-bg-recognition story-band">
         <div className="mx-auto w-full max-w-5xl px-4 py-10 sm:py-12 sm:px-6 lg:px-8">
-          <div className="mb-8 flex flex-col gap-2">
-            <Badge variant="glass" className="eyebrow self-start">Recognition & rewards</Badge>
-            <h2 className="section-title mt-3">Recognition that keeps motivation high.</h2>
-            <p className="text-sm leading-6" style={{ color: "rgba(220,225,255,0.85)" }}>
+          <div className="mb-8 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <Badge variant="glass" className="eyebrow self-start">Recognition & rewards</Badge>
+              <h2 className="section-title mt-3">Recognition that keeps motivation high.</h2>
+            </div>
+            <p className="max-w-xs text-sm leading-6" style={{ color: "rgba(220,225,255,0.8)" }}>
               Every student leaves with proof of progress. Top performers get extra recognition.
             </p>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {/* Certificates */}
-            <div className="rounded-2xl border border-border/70 bg-card/80 p-4 backdrop-blur-xl flex flex-col gap-3">
-              <div className="flex items-center gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-border/70 bg-background/80 text-primary">
-                  <GraduationCap className="size-4" />
+          {/* Asymmetric bento grid */}
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1fr_1.6fr]">
+
+            {/* LEFT — Giveaways tall column */}
+            <div className="rounded-2xl border border-border/70 bg-card/80 p-5 backdrop-blur-xl lg:row-span-2 flex flex-col gap-5">
+              {/* For every student */}
+              <div>
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-border/70 bg-background/80 text-primary">
+                    <Gift className="size-4" />
+                  </div>
+                  <h3 className="text-sm font-extrabold text-foreground">For every student</h3>
                 </div>
-                <h3 className="text-sm font-extrabold text-foreground">Certificates</h3>
-              </div>
-              <div className="flex items-center gap-2.5 rounded-xl border border-red-200/60 bg-red-50/60 px-3 py-2">
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#e11d2a] text-white text-[0.45rem] font-black leading-tight text-center">
-                  THE<br/>TOI
-                </div>
-                <div>
-                  <p className="text-[0.65rem] font-black uppercase tracking-widest text-[#e11d2a]">Times of India</p>
-                  <p className="text-[0.65rem]" style={{ color: "#6b7280" }}>Certificate of Excellence</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-2.5 rounded-xl border border-blue-200/60 bg-blue-50/40 px-3 py-2">
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#1a2b5e] text-white text-[0.42rem] font-black leading-tight text-center">
-                  TIL
-                </div>
-                <div>
-                  <p className="text-[0.65rem] font-black uppercase tracking-widest text-[#1a2b5e]">Times Internet</p>
-                  <p className="text-[0.65rem]" style={{ color: "#6b7280" }}>Standout performer recognition</p>
+                <div className="grid gap-2">
+                  {giveaways.all.map((item) => (
+                    <div key={item} className="flex items-center gap-2 rounded-xl border border-border/40 bg-background/50 px-3 py-2.5 text-sm font-medium text-foreground">
+                      <BookOpen className="size-4 shrink-0 text-secondary" />{item}
+                    </div>
+                  ))}
                 </div>
               </div>
-              <div className="rounded-xl border border-primary/25 bg-primary/8 px-3 py-2.5">
-                <div className="flex items-center gap-1.5">
-                  <Crown className="size-3.5 text-primary" />
-                  <p className="text-[0.6rem] font-black uppercase tracking-widest text-primary">Featured on TOI</p>
+
+              <div className="h-px bg-border/40" />
+
+              {/* For top performers */}
+              <div>
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-border/70 bg-background/80 text-primary">
+                    <Medal className="size-4" />
+                  </div>
+                  <h3 className="text-sm font-extrabold text-foreground">For top performers</h3>
                 </div>
-                <p className="mt-1 text-xs font-semibold leading-5" style={{ color: "rgba(220,225,255,0.9)" }}>
-                  Top performers may be featured on the Times of India platform.
-                </p>
+                <div className="grid gap-2">
+                  {giveaways.top.map((item) => (
+                    <div key={item} className="flex items-center gap-2 rounded-xl border border-border/40 bg-background/50 px-3 py-2.5 text-sm font-medium text-foreground">
+                      <Star className="size-4 shrink-0 text-primary" />{item}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Featured on TOI */}
+              <div className="mt-auto rounded-xl border border-primary/25 bg-primary/10 px-3 py-3">
+                <div className="flex items-center gap-2">
+                  <Crown className="size-4 shrink-0 text-primary" />
+                  <p className="text-xs font-semibold" style={{ color: "rgba(220,225,255,0.9)" }}>
+                    Top performers may be <span className="font-black text-primary">featured on Times of India</span>
+                  </p>
+                </div>
               </div>
             </div>
 
-            {/* Awards */}
-            <div className="rounded-2xl border border-border/70 bg-card/80 p-4 backdrop-blur-xl flex flex-col gap-3">
-              <div className="flex items-center gap-2">
+            {/* RIGHT TOP — Awards photo carousel */}
+            <div className="rounded-2xl border border-border/70 bg-card/80 p-4 backdrop-blur-xl overflow-hidden">
+              <div className="flex items-center gap-2 mb-4">
                 <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-border/70 bg-background/80 text-primary">
                   <Trophy className="size-4" />
                 </div>
                 <h3 className="text-sm font-extrabold text-foreground">Awards spotlight</h3>
               </div>
-              <div className="relative overflow-hidden rounded-xl border border-border/60 bg-gradient-to-br from-primary/10 to-secondary/10 py-5 text-center">
+
+              {/* Photo slide */}
+              <div className="relative overflow-hidden rounded-xl" style={{ height: "180px" }}>
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activeAward}
-                    initial={{ opacity: 0, scale: 0.88, y: 8 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.88, y: -8 }}
-                    transition={{ duration: 0.35 }}
-                    className="flex flex-col items-center gap-2"
+                    initial={{ opacity: 0, x: 40 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -40 }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                    className="absolute inset-0"
                   >
-                    <span className="text-4xl">{awards[activeAward].emoji}</span>
-                    <p className="text-base font-extrabold text-foreground">{awards[activeAward].title}</p>
-                    <p className="text-[0.6rem] font-semibold uppercase tracking-widest text-muted-foreground">
-                      {activeAward + 1} / {awards.length}
-                    </p>
+                    <img
+                      src={[awardImg0, awardImg1, awardImg2, awardImg3, awardImg4][activeAward]}
+                      alt={awards[activeAward].title}
+                      className="h-full w-full object-cover object-top"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+                    <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between">
+                      <div>
+                        <p className="text-[0.6rem] font-bold uppercase tracking-widest text-white/60">Award</p>
+                        <p className="text-base font-extrabold text-white leading-tight">{awards[activeAward].title}</p>
+                      </div>
+                      <span className="text-2xl">{awards[activeAward].emoji}</span>
+                    </div>
                   </motion.div>
                 </AnimatePresence>
               </div>
-              <div className="flex justify-center gap-1.5">
-                {awards.map((_, i) => (
-                  <button key={i} type="button" onClick={() => setActiveAward(i)}
-                    className={`h-1.5 rounded-full transition-all ${i === activeAward ? "w-5 bg-primary" : "w-1.5 bg-muted-foreground/30"}`}
-                  />
-                ))}
-              </div>
-              <div className="grid gap-1">
-                {awards.map((award, i) => (
-                  <div key={award.title}
-                    className={`flex items-center gap-2 rounded-lg px-2.5 py-1.5 text-xs font-semibold transition-colors ${
-                      i === activeAward ? "bg-primary/10 text-primary" : "text-foreground"
-                    }`}
-                  >
-                    <span className="text-sm">{award.emoji}</span>{award.title}
-                  </div>
-                ))}
+
+              {/* Dots + prev/next */}
+              <div className="mt-3 flex items-center justify-between">
+                <div className="flex gap-1.5">
+                  {awards.map((_, i) => (
+                    <button key={i} type="button" onClick={() => setActiveAward(i)}
+                      className="h-1.5 rounded-full transition-all duration-300"
+                      style={{
+                        width: activeAward === i ? 20 : 6,
+                        background: activeAward === i ? "#fff" : "rgba(255,255,255,0.3)",
+                      }}
+                    />
+                  ))}
+                </div>
+                <div className="flex gap-2">
+                  <button type="button"
+                    onClick={() => setActiveAward((activeAward - 1 + awards.length) % awards.length)}
+                    className="flex h-7 w-7 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white text-sm hover:bg-white/20">
+                    ←
+                  </button>
+                  <button type="button"
+                    onClick={() => setActiveAward((activeAward + 1) % awards.length)}
+                    className="flex h-7 w-7 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white text-sm hover:bg-white/20">
+                    →
+                  </button>
+                </div>
               </div>
             </div>
 
-            {/* Giveaways */}
-            <div className="rounded-2xl border border-border/70 bg-card/80 p-4 backdrop-blur-xl flex flex-col gap-3">
-              <div className="flex items-center gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-border/70 bg-background/80 text-primary">
-                  <Gift className="size-4" />
-                </div>
-                <h3 className="text-sm font-extrabold text-foreground">For every student</h3>
+            {/* RIGHT BOTTOM — Certificate image wide */}
+            <div className="relative overflow-hidden rounded-2xl border border-border/70 bg-white shadow-xl">
+              <img
+                src={certificate}
+                alt="Times of India Certificate of Excellence"
+                className="w-full object-contain"
+              />
+              <div className="absolute right-3 top-3">
+                <span className="rounded-full bg-[#1a2b5e]/90 px-2.5 py-1 text-[0.6rem] font-black text-white uppercase tracking-wider backdrop-blur">
+                  Times Internet
+                </span>
               </div>
-              {giveaways.all.map((item) => (
-                <div key={item} className="flex items-center gap-2 rounded-lg border border-border/50 bg-background/60 px-3 py-2 text-xs font-semibold text-foreground">
-                  <BookOpen className="size-3.5 shrink-0 text-secondary" />{item}
-                </div>
-              ))}
-              <div className="my-1 h-px bg-border/40" />
-              <div className="flex items-center gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-border/70 bg-background/80 text-primary">
-                  <Medal className="size-4" />
-                </div>
-                <h3 className="text-sm font-extrabold text-foreground">For top performers</h3>
+              <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
+                <span className="rounded-full bg-[#e11d2a] px-3 py-1 text-xs font-black text-white shadow">
+                  TOI Certified
+                </span>
+                <span className="rounded-full bg-black/60 px-3 py-1 text-xs font-semibold text-white backdrop-blur">
+                  Certificate of Excellence
+                </span>
               </div>
-              {giveaways.top.map((item) => (
-                <div key={item} className="flex items-center gap-2 rounded-lg border border-border/50 bg-background/60 px-3 py-2 text-xs font-semibold text-foreground">
-                  <Star className="size-3.5 shrink-0 text-primary" />{item}
-                </div>
-              ))}
             </div>
+
           </div>
         </div>
       </section>
 
-      {/* ── 5. Testimonials ── */}
+            {/* ── 5. Testimonials ── */}
       <section className="section-bg-testimonials section-shell py-14">
         <motion.div
           className="mb-8 flex flex-col items-center text-center"
@@ -641,11 +678,18 @@ export function MasterclassLanding() {
             <div className="rounded-2xl border-2 border-primary/40 bg-card/90 p-6 backdrop-blur-xl"
               style={{ boxShadow: "var(--shadow-lift)" }}>
               {/* Price */}
-              <div className="flex items-end gap-2">
-                <span className="text-5xl font-black text-foreground">₹999</span>
-                <span className="mb-2 text-sm text-muted-foreground">/ full program</span>
+              <div className="flex items-end gap-3">
+                <span className="text-5xl font-black text-foreground">₹9,999</span>
+                <div className="mb-2 flex flex-col">
+                  <span className="text-sm font-bold line-through text-muted-foreground">₹14,999</span>
+                  <span className="text-xs font-bold text-primary">Save ₹5,000</span>
+                </div>
               </div>
-              <p className="mt-1 text-sm text-muted-foreground">One-time payment · No hidden charges</p>
+              <div className="mt-1 inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-bold"
+                style={{ background: "oklch(0.72 0.19 46.0 / 15%)", color: "oklch(0.50 0.19 46.0)", border: "1px solid oklch(0.72 0.19 46.0 / 30%)" }}>
+                🔥 Early bird offer — valid till May 15
+              </div>
+              <p className="mt-2 text-sm text-muted-foreground">One-time payment · No hidden charges</p>
 
               <div className="my-5 h-px bg-border/50" />
 
@@ -671,10 +715,10 @@ export function MasterclassLanding() {
               <div className="mt-6">
                 <button className="btn-cta w-full justify-center">
                   <Sparkles className="size-4" />
-                  Enroll for ₹999
+                  Enroll for ₹9,999
                 </button>
                 <p className="mt-3 text-center text-xs text-muted-foreground">
-                  🔥 Next batch starting May 15 · Only 12 seats left
+                  🔥 Early bird price till May 15 · Only 12 seats left
                 </p>
               </div>
             </div>
@@ -711,7 +755,7 @@ export function MasterclassLanding() {
             <div className="mt-8 grid gap-4">
               {[
                 ["01", "Fill the registration form", "Share student and parent details."],
-                ["02", "Pay the program fee — ₹999", "One-time payment. Seat confirmed instantly."],
+                ["02", "Pay the program fee — ₹9,999", "Early bird price till May 15. One-time payment."],
                 ["03", "Receive confirmation",       "Get the schedule, batch details, and next steps."],
               ].map(([step, title, copy], i) => (
                 <motion.div
